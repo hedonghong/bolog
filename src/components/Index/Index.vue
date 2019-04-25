@@ -4,12 +4,18 @@
             <span class="demonstration" style="float:left;padding-top:10px;color:white;margin-left:1%">
                 网站首页
             </span>
-            <span class="demonstration" style="float:right;padding:5px;color:white;margin-right:2%;width:15%">
+            <span class="demonstration" style="float:left;padding-top:10px;color:white;margin-left:2%">
+                <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
+                    <el-radio-button :label="false" @click="colaChange">展开</el-radio-button>
+                    <el-radio-button :label="true" @click="colbChange">收起</el-radio-button>
+                </el-radio-group>
+            </span>
+            <span class="demonstration" style="float:left;padding:5px;color:white;margin-left:50%;width:30%">
                 <el-input
                         placeholder="请输入"
-                        icon="search"
-                        v-model="searchCriteria"
-                        :on-icon-click="handleIconClick">
+                        v-model="search"
+                        suffix-icon="el-icon-search"
+                        @keyup.enter.native="startSearch">
                 </el-input>
             </span>
             <span class="demonstration" style="float:right;padding-top:10px;margin-right:1%">
@@ -27,16 +33,41 @@
 
         <div style="margin-top:5px">
             <el-row :gutter="10">
-                <el-col :xs="4" :sm="4" :md="4" :lg="4">
-                    <div>
-                        <el-menu default-active="1" class="el-menu-vertical-demo" style="min-height:800px">
-                            <el-menu-item index="1"><i class="el-icon-message"></i>导航一</el-menu-item>
-                            <el-menu-item index="2"><i class="el-icon-menu"></i>导航二</el-menu-item>
-                            <el-menu-item index="3"><i class="el-icon-setting"></i>导航三</el-menu-item>
-                        </el-menu>
-                    </div>
+                <el-col :xs="cola" :sm="cola" :md="cola" :lg="cola">
+                    <el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+                        <el-submenu index="1">
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span slot="title">导航一</span>
+                            </template>
+                            <el-menu-item-group>
+                                <span slot="title">分组一</span>
+                                <el-menu-item index="1-1">选项1</el-menu-item>
+                                <el-menu-item index="1-2">选项2</el-menu-item>
+                            </el-menu-item-group>
+                            <el-menu-item-group title="分组2">
+                                <el-menu-item index="1-3">选项3</el-menu-item>
+                            </el-menu-item-group>
+                            <el-submenu index="1-4">
+                                <span slot="title">选项4</span>
+                                <el-menu-item index="1-4-1">选项1</el-menu-item>
+                            </el-submenu>
+                        </el-submenu>
+                        <el-menu-item index="2">
+                            <i class="el-icon-menu"></i>
+                            <span slot="title">导航二</span>
+                        </el-menu-item>
+                        <el-menu-item index="3" disabled>
+                            <i class="el-icon-document"></i>
+                            <span slot="title">导航三</span>
+                        </el-menu-item>
+                        <el-menu-item index="4">
+                            <i class="el-icon-setting"></i>
+                            <span slot="title">导航四</span>
+                        </el-menu-item>
+                    </el-menu>
                 </el-col>
-                <el-col :xs="20" :sm="20" :md="20" :lg="20">
+                <el-col :xs="colb" :sm="colb" :md="colb" :lg="colb">
                     <div>
                         <div style="border: 1px solid #A6A6A6; border-radius:6px; padding:5px; margin:2px; background-color: white">
                             <el-breadcrumb separator="/">
@@ -54,13 +85,26 @@ export default {
     name: 'Index',
     data () {
         return {
-            searchCriteria: '',
-            breadcrumbItems: ['导航一']
+            search: '',
+            breadcrumbItems: ['导航一', 'sad'],
+            isCollapse: false,
+            cola: 4,
+            colb: 20
         }
     },
     methods: {
-        handleIconClick (ev) {
-            console.log(ev)
+        startSearch () {
+            console.log(this.search)
+        },
+        colaChange () {
+            this.cola = 4
+            this.colb = 20
+            alert(this.cola)
+        },
+        colbChange () {
+            this.cola = 1
+            this.colb = 23
+            alert(this.cola)
         }
     }
 }
