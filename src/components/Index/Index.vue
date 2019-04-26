@@ -53,7 +53,7 @@
                         </el-menu-item>
                         <el-menu-item index="3" disabled>
                             <i class="el-icon-document"></i>
-                            <span slot="title">导航三</span>
+                            <router-link to="/detail" tag="span">导航三</router-link>
                         </el-menu-item>
                         <el-menu-item index="4">
                             <i class="el-icon-setting"></i>
